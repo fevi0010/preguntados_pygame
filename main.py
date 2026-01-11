@@ -71,16 +71,6 @@ while corriendo:
         parar_timer()
         reiniciar_comodines(datos_juego)
         botones_menu = mostrar_menu(pantalla)
-        pygame.mixer.music.stop()
-        if pygame.mixer.get_init():
-            pygame.mixer.music.stop()
-        if mouse_pos:
-            datos_juego["estado_juego"], corriendo = manejar_eventos_menu(
-                mouse_pos, botones_menu, datos_juego["estado_juego"], corriendo
-            )
-
-    ## PANTALLA DE JUEGO
-    elif datos_juego["estado_juego"] == "jugar":
         if datos_juego["musica_activada"]:
             if not pygame.mixer.music.get_busy():
                 porcentaje_volumen = datos_juego["volumen_musica"] / 100
@@ -92,6 +82,13 @@ while corriendo:
                 pygame.mixer.music.stop()
             pass
 
+        if mouse_pos:
+            datos_juego["estado_juego"], corriendo = manejar_eventos_menu(
+                mouse_pos, botones_menu, datos_juego["estado_juego"], corriendo
+            )
+
+    ## PANTALLA DE JUEGO
+    elif datos_juego["estado_juego"] == "jugar":
         if datos_juego["vidas"] <= 0:
             datos_juego["estado_juego"] = "fin_juego"
             datos_juego["timer_activo"] = False
